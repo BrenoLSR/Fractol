@@ -16,13 +16,19 @@ int	main(int argc, char **argv)
 {
 	t_fractal	fractal;
 
-	if ((2 == argc && (!ft_strcmp(argv[1], "mandelbrot"))) || (4 == argc
-			&& (!ft_strcmp(argv[1], "julia"))))
+	if ((ac == 2 && !ft_strcmp(av[1], "mandelbrot")) || (ac == 4
+		&& !ft_strcmp(av[1], "julia")))
 	{
 		fractal.name = argv[1];
-		// Prompt correct, kick off the application
-		fractal_init(&fractal);
-		fractal_render(&fractal);
+		if (!ft_strncmp(fractal.name, "julia", 5))
+		{
+			if ((ft_valid(av[2])) || (ft_valid(av[3])))
+				ft_erro_bundle();
+			fractal.julia_x = ft_atodbl(av[2]);
+			fractal.julia_y = ft_atodbl(av[3]);
+		}
+		ft_fractal_init(&fractal);
+		ft_fractal_render(&fractal);
 		mlx_loop(fractal.mlx_start);
 	}
 	else
